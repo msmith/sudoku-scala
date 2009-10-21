@@ -8,7 +8,7 @@ class Board(val cells: List[Cell]) {
         val cell = get(row, col)
         if (!cell.isPossible(v)) {
             val msg = "("+ row + "," + col + ")=" + v + " is not valid"
-            throw new IllegalStateException(msg)
+            throw new IllegalArgumentException(msg)
         }
         val newCells = cells.map { c =>
             if (c == cell)
@@ -55,10 +55,9 @@ object Board {
     val MAX_IDX = DIM2 - 1
 
     val blank: Board = {
-        var cells:List[Cell] = Nil
-        for (row <- 0.to(MAX_IDX); col <- 0.to(MAX_IDX))
-        	cells ++= List(new Cell(row, col))
-        new Board(cells)
+        val idxs = 0.to(MAX_IDX)
+        val cells = for (row <- idxs; col <- idxs) yield new Cell(row, col)
+        new Board(cells.toList)
     }
 
     /* Reads a puzzle in multi-line format
@@ -70,8 +69,9 @@ object Board {
             val digits = line.map(Character.digit(_,10))
             var col = 0
             for (d <- digits) {
-                if (d > 0)
+                if (d > 0) {
                 	b = b.set(row, col, d)
+                }
                 col += 1
             }
             row += 1
