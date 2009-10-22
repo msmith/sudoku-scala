@@ -18,7 +18,7 @@ object SudokuBatch {
         val t0 = System.currentTimeMillis()
         
         for (s <- lines) {
-        	val b = Board.read2(s)
+        	val b = Board.read(s)
         	if (b.solve.isDefined) {
         		solved +=1
         	}
