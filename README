@@ -1,0 +1,13 @@
+A Sudoku solver that uses a brute-force algorithm to find a solution to
+any valid puzzle.
+
+To compile:
+  $ mkdir bin
+  $ scalac src/sudoku/*.scala -d bin
+
+To run:
+  $ cd bin
+  $ scala sudoku.Sudoku <single_puzzle>
+  $ scala sudoku.SudokuBatch <puzzle_set>
+
+My Ruby-based solver has a collection of sample puzzles: http://github.com/msmith/sudoku
