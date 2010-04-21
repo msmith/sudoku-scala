@@ -9,7 +9,7 @@ class Cell(val row: Int, val col: Int, val possibles: List[Int], val value: Opti
     /**
      * Eliminate a value from the list of possibilities
      */
-    def -(v: Int) = new Cell(row, col, possibles - v, value)
+    def -(v: Int) = new Cell(row, col, possibles.filterNot(_ == v), value)
 
     val isSolved = value.isDefined
 

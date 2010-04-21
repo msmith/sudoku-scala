@@ -26,12 +26,12 @@ class Board(val cells: List[Cell]) {
 
     val isSolved = cells.forall(_.isSolved)
 
-    val unsolvedCells = cells.remove(_.isSolved)
+    val unsolvedCells = cells.filterNot(_.isSolved)
 
     def solve:Option[Board] = {
         if (isSolved)
             return Some(this)
-        val c = unsolvedCells.sort(_.numPossible < _.numPossible).first
+        val c = unsolvedCells.sortWith(_.numPossible < _.numPossible).head
         for (v <- c.possibles) {
             val b = set(c.row, c.col, v)
             val s = b.solve

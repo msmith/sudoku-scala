@@ -1,19 +1,17 @@
 package sudoku
 
 import scala.io.Source
+import java.io.File
 
 object SudokuBatch {
 
     def main(args: Array[String]): Unit = {
-        val f = args(0)
-        
-        println("Solving boards from " + f)
-        println
+        val source = if (args.length > 1) Source.fromFile(new File(args(0))) else Source.fromInputStream(System.in)
         
         var solved = 0
         var total = 0
         
-        val lines = Source.fromFile(f).mkString.lines
+        val lines = source.mkString.lines
         
         val t0 = System.currentTimeMillis()
         
