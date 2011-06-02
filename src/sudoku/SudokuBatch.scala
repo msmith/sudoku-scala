@@ -11,7 +11,7 @@ object SudokuBatch {
         var solved = 0
         var total = 0
         
-        val lines = source.mkString.lines
+        val lines = source.getLines
         
         val t0 = System.currentTimeMillis()
         

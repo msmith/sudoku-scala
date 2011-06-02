@@ -31,7 +31,7 @@ class Board(val cells: List[Cell]) {
     def solve:Option[Board] = {
         if (isSolved)
             return Some(this)
-        val c = unsolvedCells.sortWith(_.numPossible < _.numPossible).head
+        val c = unsolvedCells.minBy(_.numPossible)
         for (v <- c.possibles) {
             val b = set(c.row, c.col, v)
             val s = b.solve
