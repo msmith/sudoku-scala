@@ -1,10 +1,10 @@
 package sudoku;
 
-class Cell(val row: Int, val col: Int, val possibles: List[Int], val value: Option[Int]) {
+class Cell(val row: Int, val col: Int, val possibles: Seq[Int], val value: Option[Int]) {
 
     def this(row: Int, col: Int, value:Int) = this(row, col, Nil, Some(value))
 
-    def this(row: Int, col: Int) = this(row, col, 1.to(Cell.MAX_VAL).toList, None)
+    def this(row: Int, col: Int) = this(row, col, 1.to(Cell.MAX_VAL), None)
     
     /**
      * Eliminate a value from the list of possibilities

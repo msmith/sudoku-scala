@@ -1,6 +1,6 @@
 package sudoku;
 
-class Board(val cells: List[Cell]) {
+class Board(val cells: Seq[Cell]) {
 
     def get(row: Int, col: Int): Cell = cells(Board.DIM2*row + col)
 
@@ -19,7 +19,7 @@ class Board(val cells: List[Cell]) {
             	else
             		c
         }
-        return new Board(newCells.toList)
+        return new Board(newCells)
     }
 
     def relatedCells(cell:Cell) = cells.filter(c => c != cell && c.sameScopeAs(cell))
@@ -64,12 +64,12 @@ object Board {
 
     private val SZ = DIM2*DIM2
 
-    val COORDS = 0.to(SZ-1).map( i => (i / DIM2, i % DIM2)).toList
+    val COORDS = 0.to(SZ-1).map( i => (i / DIM2, i % DIM2))
 
     val blank: Board = {
         val idxs = 0.to(MAX_IDX)
         val cells = for (row <- idxs; col <- idxs) yield new Cell(row, col)
-        new Board(cells.toList)
+        new Board(cells)
     }
 
     def read(s:String): Board = {
@@ -83,7 +83,7 @@ object Board {
         return b
     }
     
-    private def toVals(s:String):List[Option[Int]] = {
+    private def toVals(s:String):Seq[Option[Int]] = {
       val s1 = s.filter(_ != '\n')
       if (s1.length != SZ) {
         throw new IllegalArgumentException("puzzle must be " + SZ + " cells")
@@ -91,7 +91,7 @@ object Board {
       s1.map { c =>
         val d = Character.digit(c,10)
         if (d > 0) Some(d) else None
-      }.toList
+      }
     }
 
 }
