@@ -1,12 +1,11 @@
 package sudoku
 
 import scala.io.Source
-import java.io.File
 
 object SudokuBatch {
 
     def main(args: Array[String]): Unit = {
-        val source = if (args.length > 1) Source.fromFile(new File(args(0))) else Source.fromInputStream(System.in)
+        val source = if (args.length > 0) Source.fromFile(args(0)) else Source.fromInputStream(System.in)
         
         var solved = 0
         var total = 0
