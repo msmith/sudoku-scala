@@ -12,7 +12,7 @@ class Board(val cells: Seq[Cell]) {
         val cell = get(row, col)
         if (!cell.isPossible(value)) {
             val msg = "(%d,%d)=%d is not valid".format(row, col, value)
-            throw new IllegalArgumentException(msg)
+            throw new IllegalAssignmentException(this, row, col, value)
         }
         val newCells = cells.map { c =>
             if (c == cell)
