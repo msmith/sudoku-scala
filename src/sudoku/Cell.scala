@@ -2,16 +2,18 @@ package sudoku;
 
 import collection.immutable.BitSet
 
-class Cell(val row: Int, val col: Int, val possibles: Set[Int], val value: Option[Int]) {
+class Cell(val row: Int, val col: Int, val possibles: Set[Int]) {
 
-    def this(row: Int, col: Int, value:Int) = this(row, col, Set.empty, Some(value))
+    def this(row: Int, col: Int, value:Int) = this(row, col, Set(value))
 
-    def this(row: Int, col: Int) = this(row, col, Cell.ALL_VALUES, None)
+    def this(row: Int, col: Int) = this(row, col, Cell.ALL_VALUES)
+
+    val value = if (possibles.size == 1) Some(possibles.head) else None
     
     /**
      * Eliminate a value from the list of possibilities
      */
-    def -(v: Int) = new Cell(row, col, possibles - v, value)
+    def -(v: Int) = new Cell(row, col, possibles - v)
 
     val isSolved = value.isDefined
 
