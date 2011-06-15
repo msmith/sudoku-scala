@@ -4,25 +4,23 @@ class Board(val cells: Seq[Cell]) {
 
     def get(row: Int, col: Int): Cell = cells(Board.DIM2*row + col)
 
-    def set(row: Int, col: Int, v: Int): Board = {
+    def set(row: Int, col: Int, value: Int): Board = {
         val cell = get(row, col)
-        if (!cell.isPossible(v)) {
-            val msg = "("+ row + "," + col + ")=" + v + " is not valid"
+        if (!cell.isPossible(value)) {
+            val msg = "("+ row + "," + col + ")=" + value + " is not valid"
             throw new IllegalArgumentException(msg)
         }
         val newCells = cells.map { c =>
             if (c == cell)
-                new Cell(row, col, v)
+                new Cell(row, col, value)
             else
             	if (c.sameScopeAs(cell))
-            		(c-v)
+            		c - value
             	else
             		c
         }
         return new Board(newCells)
     }
-
-    def relatedCells(cell:Cell) = cells.filter(c => c != cell && c.sameScopeAs(cell))
 
     val isSolved = cells.forall(_.isSolved)
 
@@ -63,8 +61,7 @@ object Board {
     val MAX_IDX = DIM2 - 1
 
     private val SZ = DIM2*DIM2
-
-    val COORDS = 0.to(SZ-1).map( i => (i / DIM2, i % DIM2))
+    private val COORDS = 0.to(SZ-1).map( i => (i / DIM2, i % DIM2))
 
     val blank: Board = {
         val idxs = 0.to(MAX_IDX)
