@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku
 
 import collection.immutable.BitSet
 
@@ -8,20 +8,20 @@ class Cell(val row: Int, val col: Int, val possibles: Set[Int]) {
 
     def this(row: Int, col: Int) = this(row, col, Cell.ALL_VALUES)
 
-    val value = if (possibles.size == 1) Some(possibles.head) else None
-    
-    /**
-     * Eliminate a value from the list of possibilities
-     */
-    def -(v: Int) = new Cell(row, col, possibles - v)
+    val region = (row / Board.DIM) * Board.DIM + (col / Board.DIM)
+
+    val value = if (numPossible == 1) Some(possibles.head) else None
 
     val isSolved = value.isDefined
 
     val numPossible = possibles.size
 
-    def isPossible(v: Int) = possibles.contains(v)
+    /**
+     * Eliminate a value from the list of possibilities
+     */
+    def -(v: Int) = new Cell(row, col, possibles - v)
 
-    val region = (row / Board.DIM) * Board.DIM + (col / Board.DIM)
+    def isPossible(v: Int) = possibles.contains(v)
 
     def sameScopeAs(c:Cell) = c.row == row || c.col == col || c.region == region
     
@@ -32,5 +32,5 @@ class Cell(val row: Int, val col: Int, val possibles: Set[Int]) {
 }
 
 object Cell {
-	val ALL_VALUES = BitSet.empty ++ (1 to Board.DIM2)
+    val ALL_VALUES = BitSet.empty ++ (1 to Board.DIM2)
 }
