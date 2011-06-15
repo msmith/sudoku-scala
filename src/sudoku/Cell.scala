@@ -26,8 +26,7 @@ class Cell(val row: Int, val col: Int, val possibles: Set[Int]) {
     def sameScopeAs(c:Cell) = c.row == row || c.col == col || c.region == region
     
     override def toString = {
-        val s = if (isSolved) ("=" + value.get) else (possibles.mkString)
-        "(" + row + "," + col + ") " + s 
+        "(%d,%d) %s".format(row, col, possibles.mkString)
     }
 
 }

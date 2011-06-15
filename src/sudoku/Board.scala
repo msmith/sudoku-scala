@@ -2,12 +2,12 @@ package sudoku;
 
 class Board(val cells: Seq[Cell]) {
 
-    def get(row: Int, col: Int): Cell = cells(Board.DIM2*row + col)
+    def get(row: Int, col: Int) = cells(Board.DIM2*row + col)
 
-    def set(row: Int, col: Int, value: Int): Board = {
+    def set(row: Int, col: Int, value: Int) = {
         val cell = get(row, col)
         if (!cell.isPossible(value)) {
-            val msg = "("+ row + "," + col + ")=" + value + " is not valid"
+            val msg = "(%d,%d)=%d is not valid".format(row, col, value)
             throw new IllegalArgumentException(msg)
         }
         val newCells = cells.map { c =>
@@ -19,7 +19,7 @@ class Board(val cells: Seq[Cell]) {
             	else
             		c
         }
-        return new Board(newCells)
+        new Board(newCells)
     }
 
     val isSolved = cells.forall(_.isSolved)
