@@ -10,11 +10,9 @@ class Cell(val row: Int, val col: Int, val possibles: Set[Int]) {
 
     val region = (row / Board.DIM) * Board.DIM + (col / Board.DIM)
 
-    val value = if (numPossible == 1) Some(possibles.head) else None
+    val value = if (possibles.size == 1) Some(possibles.head) else None
 
     val isSolved = value.isDefined
-
-    val numPossible = possibles.size
 
     /**
      * Eliminate a value from the list of possibilities

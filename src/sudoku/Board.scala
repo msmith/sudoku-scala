@@ -29,7 +29,7 @@ class Board(val cells: Seq[Cell]) {
     def solve:Option[Board] = {
         if (isSolved)
             return Some(this)
-        val c = unsolvedCells.minBy(_.numPossible)
+        val c = unsolvedCells.minBy(_.possibles.size)
         for (v <- c.possibles) {
             val b = set(c.row, c.col, v)
             val s = b.solve
