@@ -1,15 +1,17 @@
 package sudoku;
 
-class Cell(val row: Int, val col: Int, val possibles: Seq[Int], val value: Option[Int]) {
+import collection.immutable.BitSet
 
-    def this(row: Int, col: Int, value:Int) = this(row, col, Nil, Some(value))
+class Cell(val row: Int, val col: Int, val possibles: Set[Int], val value: Option[Int]) {
 
-    def this(row: Int, col: Int) = this(row, col, 1.to(Cell.MAX_VAL), None)
+    def this(row: Int, col: Int, value:Int) = this(row, col, Set.empty, Some(value))
+
+    def this(row: Int, col: Int) = this(row, col, Cell.ALL_VALUES, None)
     
     /**
      * Eliminate a value from the list of possibilities
      */
-    def -(v: Int) = new Cell(row, col, possibles.filterNot(_ == v), value)
+    def -(v: Int) = new Cell(row, col, possibles - v, value)
 
     val isSolved = value.isDefined
 
@@ -29,5 +31,5 @@ class Cell(val row: Int, val col: Int, val possibles: Seq[Int], val value: Optio
 }
 
 object Cell {
-    val MAX_VAL = Board.DIM2
+	val ALL_VALUES = BitSet.empty ++ (1 to Board.DIM2)
 }
